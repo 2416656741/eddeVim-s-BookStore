@@ -46,10 +46,15 @@ public class UserServlet extends BaseServlet {
         String email = req.getParameter("email");
         String code = req.getParameter("code");
 
+        // 获取谷歌kaptcha的验证码
+        String taken = (String) req.getSession().getAttribute("KAPTCHA_SESSION_KEY");
+        //马上删除以防止多次使用
+        req.getSession().removeAttribute("KAPTCHA_SESSION_KEY");
+
         User user = WebUtils.copyParamToBean(req.getParameterMap(), new User());
 
         //2检查验证码是否ok
-        if (!"abcde".equalsIgnoreCase(code)) {
+        if (taken != null && !taken.equalsIgnoreCase(code)) {
             //回显错误信息
             req.setAttribute("msg", "验证码错误");
             req.setAttribute("username", username);

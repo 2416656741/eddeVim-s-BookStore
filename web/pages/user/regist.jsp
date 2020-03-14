@@ -17,6 +17,11 @@
 	<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
 	<script type="text/javascript">
 		$(function () {
+			//切换验证码单击事件
+			$("#verification").click(function () {
+				//为了防止缓存机制的发生导致验证码不能刷新，加入一个newdate使得每次都请求不同的地址
+				this.src = "${basePath}/kaptcha.jsp?date=" + new Date();
+			});
 			//提交单击事件
 			$("#sub_btn").click(function () {
 
@@ -126,7 +131,7 @@
 									<br />
 									<label>验证码：</label>
 									<input class="itxt" type="text" style="width: 150px;" name="code" id="code"/>
-									<img alt="" src="static/img/code.bmp" style="float: right; margin-right: 40px">
+									<img alt="" id="verification" src="kaptcha.jsp" style="float: right; margin-right: 40px; width: 90px; height: 40px">
 									<br />
 									<br />
 									<input type="submit" value="注册" id="sub_btn" />

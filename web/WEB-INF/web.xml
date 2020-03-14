@@ -31,4 +31,13 @@
         <url-pattern>/client/bookServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>kaptchaServlet</servlet-name>
+        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>kaptchaServlet</servlet-name>
+        <url-pattern>/kaptcha.jsp</url-pattern>
+    </servlet-mapping>
+
 </web-app>
