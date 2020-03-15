@@ -40,4 +40,13 @@
         <url-pattern>/kaptcha.jsp</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>cartServlet</servlet-name>
+        <servlet-class>com.eddievim.web.CartServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cartServlet</servlet-name>
+        <url-pattern>/cartServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

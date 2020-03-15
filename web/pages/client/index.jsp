@@ -7,6 +7,15 @@
 <title>书城首页</title>
 	<%--静态包含--%>
 	<%@ include file="/pages/common/head.jsp"%>
+	<script type="text/javascript">
+		$(function () {
+			//加入购物车绑定单击事件
+			$("button.addToCart").click(function () {
+				var bookId = $(this).attr("bookId");
+				window.location.href = "${pageScope.basePath}cartServlet?action=addItem&id="+bookId;
+			});
+		});
+	</script>
 	<style type="text/css">
 		.b_list {
 			width: 197px;
@@ -46,12 +55,23 @@
 						<input type="submit" value="查询" />
 				</form>
 			</div>
-			<div style="text-align: center">
-				<span>您的购物车中有3件商品</span>
-				<div>
-					您刚刚将<span style="color: red">时间简史</span>加入到了购物车中
+
+
+				<div style="text-align: center">
+					<c:if test="${sessionScope.cart.totalCount > 0}">
+						<span>您的购物车中有${sessionScope.cart.totalCount}件商品</span>
+					</c:if>
+					<div>
+						<c:if test="${sessionScope.cart.totalCount > 0}">
+							您刚刚将<span style="color: red">${sessionScope.lastItem}</span>加入到了购物车中
+						</c:if>
+
+						<c:if test="${empty sessionScope.cart.totalCount or sessionScope.cart.totalCount == 0}">
+							<span style="color: red">当前购物车没有东西！</span>
+						</c:if>
+					</div>
 				</div>
-			</div>
+
 
 			<c:forEach items="${requestScope.page.items}" var="book">
 				<div class="b_list">
@@ -80,7 +100,7 @@
 							<span class="sp2">${book.stock}</span>
 						</div>
 						<div class="book_add">
-							<button>加入购物车</button>
+							<button bookId="${book.id}" class="addToCart">加入购物车</button>
 						</div>
 					</div>
 				</div>
