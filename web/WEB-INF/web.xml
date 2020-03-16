@@ -48,5 +48,14 @@
         <servlet-name>cartServlet</servlet-name>
         <url-pattern>/cartServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>orderServlet</servlet-name>
+        <servlet-class>com.eddievim.web.OrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>orderServlet</servlet-name>
+        <url-pattern>/orderServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

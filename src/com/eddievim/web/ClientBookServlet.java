@@ -15,7 +15,7 @@ public class ClientBookServlet extends BaseServlet{
 
 
     protected void page (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("through clientServlet");
+        //System.out.println("through clientServlet");
         //1 获取请求的参数（网站请求pageNo 与 pageSize）
         int pageNO = req.getParameter("pageNO") == null ? 1 : Integer.parseInt(req.getParameter("pageNO"));
         int pageSize = req.getParameter("pageSize") == null ? Page.PAGE_SIZE : Integer.parseInt(req.getParameter("pageSize"));
@@ -30,7 +30,7 @@ public class ClientBookServlet extends BaseServlet{
     }
 
     protected void pageByPrice(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("through clientServlet - priceSearch");
+
         //1 获取请求的参数（网站请求pageNo 与 pageSize）
         int pageNO = req.getParameter("pageNO") == null ? 1 : Integer.parseInt(req.getParameter("pageNO"));
         int pageSize = req.getParameter("pageSize") == null ? Page.PAGE_SIZE : Integer.parseInt(req.getParameter("pageSize"));
