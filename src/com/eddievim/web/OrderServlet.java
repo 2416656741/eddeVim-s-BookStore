@@ -27,6 +27,7 @@ public class OrderServlet extends BaseServlet {
 
         // 调用Service结算
         String orderId = orderService.createOrder(cart, id);
+
         session.setAttribute("orderId", orderId);
         //重定向
         resp.sendRedirect(req.getContextPath()+"/pages/cart/checkout.jsp");

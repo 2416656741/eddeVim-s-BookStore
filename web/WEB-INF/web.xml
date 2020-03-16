@@ -4,6 +4,26 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <filter>
+        <filter-name>managerFilter</filter-name>
+        <filter-class>com.eddievim.filter.ManagerFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>managerFilter</filter-name>
+        <url-pattern>/pages/manager/*</url-pattern>
+        <url-pattern>/manager/bookServlet</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>transactionFilter</filter-name>
+        <filter-class>com.eddievim.filter.TransactionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>transactionFilter</filter-name>
+    <!--对所有的请求都进行事务管理-->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>userServlet</servlet-name>
         <servlet-class>com.eddievim.web.UserServlet</servlet-class>
