@@ -18,8 +18,9 @@ public class TransactionFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
             JDBCUtils.commitAndClose();
         } catch (Exception e) {
-            e.printStackTrace();
             JDBCUtils.rollbackAndClose();
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

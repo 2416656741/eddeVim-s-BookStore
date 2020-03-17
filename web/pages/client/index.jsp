@@ -12,7 +12,13 @@
 			//加入购物车绑定单击事件
 			$("button.addToCart").click(function () {
 				var bookId = $(this).attr("bookId");
-				window.location.href = "${pageScope.basePath}cartServlet?action=addItem&id="+bookId;
+				//window.location.href = "${pageScope.basePath}cartServlet?action=addItem&id="+bookId;
+
+				$.getJSON("${pageScope.basePath}cartServlet", {"action": "ajaxAddItem", "id" : bookId}, function (data) {
+					//console.log(data);
+					$("#countSum").text(data.totalCount);
+					$("#lastBook").text(data.lastName);
+				});
 			});
 		});
 	</script>
@@ -59,11 +65,11 @@
 
 				<div style="text-align: center">
 					<c:if test="${sessionScope.cart.totalCount > 0}">
-						<span>您的购物车中有${sessionScope.cart.totalCount}件商品</span>
+						您的购物车中有<span id="countSum">${sessionScope.cart.totalCount}</span>件商品
 					</c:if>
 					<div>
 						<c:if test="${sessionScope.cart.totalCount > 0}">
-							您刚刚将<span style="color: red">${sessionScope.lastItem}</span>加入到了购物车中
+							您刚刚将<span style="color: red" id="lastBook">${sessionScope.lastItem}</span>加入到了购物车中
 						</c:if>
 
 						<c:if test="${empty sessionScope.cart.totalCount or sessionScope.cart.totalCount == 0}">

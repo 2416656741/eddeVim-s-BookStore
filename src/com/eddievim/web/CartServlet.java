@@ -5,15 +5,15 @@ import com.eddievim.pojo.Cart;
 import com.eddievim.pojo.CartItem;
 import com.eddievim.service.BookService;
 import com.eddievim.service.impl.BookServiceImpl;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigDecimal;
-
-import static javax.swing.text.html.CSS.getAttribute;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CartServlet extends BaseServlet {
     BookService bookService = new BookServiceImpl();
@@ -46,6 +46,38 @@ public class CartServlet extends BaseServlet {
         //resp.sendRedirect(req.getContextPath()+"/index.jsp");
 
         resp.sendRedirect(req.getHeader("Referer"));
+    }
+
+    protected void ajaxAddItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1 获取参数
+        int id = req.getParameter("id") == null ?  0 : Integer.parseInt(req.getParameter("id"));
+
+        //2 创建项
+        Book book = bookService.queryBookById(id);
+        CartItem cartItem = new CartItem(book.getId(), book.getName(), 1,book.getPrice(), book.getPrice());
+
+        //3 添加到session中的购物车
+        //获取session
+        HttpSession session = req.getSession();
+
+        //4 没有购物车就创建
+        if(session.getAttribute("cart") == null) {
+            session.setAttribute("cart", new Cart());
+        }
+
+        session.setAttribute("lastItem", cartItem.getName());
+
+        //5 添加进购物车
+        Cart cart = (Cart) session.getAttribute("cart");
+        cart.addItem(cartItem);
+
+        //6 返回购物车总的商品数量和最后一个添加的商品名称
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("totalCount", cart.getTotalCount());
+        map.put("lastName", cartItem.getName());
+
+        resp.getWriter().write(new Gson().toJson(map));
     }
 
     protected void removeItem(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

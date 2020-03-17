@@ -17,6 +17,20 @@
 	<script type="text/javascript" src="static/script/jquery-1.7.2.js"></script>
 	<script type="text/javascript">
 		$(function () {
+			//利用ajax验证用户名是否重复
+			$("#username").blur(function () {
+				var username = this.value;
+				$.getJSON("${pageScope.basePath}userServlet", {"username" :username, "action":"verifyUsername"},
+						function (data) {
+							//console.log(data.isExist);
+							if(data.isExist) {
+								$("span.errorMsg").text("用户名已经存在");
+							}else{
+								$("span.errorMsg").text("");
+							}
+						}
+				);
+			});
 			//切换验证码单击事件
 			$("#verification").click(function () {
 				//为了防止缓存机制的发生导致验证码不能刷新，加入一个newdate使得每次都请求不同的地址
@@ -84,6 +98,22 @@
 				$("span.errorMsg").text("");
 			});
 		});
+
+		//获取访问网址前缀
+		function getRequestPrefix () {
+			// 获取网络协议
+			var protocol = window.location.protocol;
+			// 获取主机名+端口号
+			var domainPort = window.location.host;
+			// 获取发布项目的名称
+			// 获取路径
+			var url = window.location.pathname;
+			var webApp = url.split('/')[1];
+			// http://127.0.0.1/demo
+			var urlPrefix = protocol + "//" + domainPort + "/" + webApp;
+			return urlPrefix;
+		}
+
 	</script>
 </head>
 <body>

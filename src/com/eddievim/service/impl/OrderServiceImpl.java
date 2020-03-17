@@ -32,6 +32,8 @@ public class OrderServiceImpl implements OrderService {
             //保持订单项到数据库
             orderItemDao.saveOrderItem(orderItem);
 
+            //int i = 1/0;//检测错误，检测事务一致性
+
             //book销量与库存修改
             Book book = bookDao.queryBookById(cartItem.getId());
             book.setSales(book.getSales() + cartItem.getCount());

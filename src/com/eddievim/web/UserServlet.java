@@ -4,12 +4,14 @@ import com.eddievim.pojo.User;
 import com.eddievim.service.UserService;
 import com.eddievim.service.impl.UserServiceImpl;
 import com.eddievim.utils.WebUtils;
-import org.apache.commons.beanutils.BeanUtils;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserServlet extends BaseServlet {
 
@@ -82,5 +84,18 @@ public class UserServlet extends BaseServlet {
                 req.getRequestDispatcher("/pages/user/regist_success.jsp").forward(req, resp);
             }
         }
+    }
+
+    protected void verifyUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String username = req.getParameter("username");
+
+        boolean b = service.existsUsername(username);
+
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("isExist", b);
+
+        resp.getWriter().write(new Gson().toJson(map));
     }
 }
