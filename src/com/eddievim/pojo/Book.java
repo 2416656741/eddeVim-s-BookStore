@@ -21,7 +21,9 @@ public class Book {
         this.price = price;
         this.sales = sales;
         this.stock = stock;
-        if(imgPath != null && !"".equals(imgPath)) this.imgPath = imgPath;
+        if(imgPath != null && !"".equals(imgPath)) {
+            this.imgPath = imgPath;
+        }
     }
 
     @Override
@@ -90,7 +92,9 @@ public class Book {
     }
 
     public void setImgPath(String imgPath) {
-        if(imgPath != null && !"".equals(imgPath)) this.imgPath = imgPath;
+        if(imgPath != null && !"".equals(imgPath)) {
+            this.imgPath = imgPath;
+        }
     }
 }
 

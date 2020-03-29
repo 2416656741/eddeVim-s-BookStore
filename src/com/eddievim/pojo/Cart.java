@@ -15,7 +15,9 @@ public class Cart {
     }
 
     public void addItem(CartItem cartItem) {
-        if(cartItem == null) return;
+        if(cartItem == null) {
+            return;
+        }
 
         this.totalCount += cartItem.getCount();
         this.totalPrice = this.totalPrice.add(cartItem.getTotalPrice());
@@ -49,8 +51,9 @@ public class Cart {
         CartItem cartItem = items.get(id);
 
         if(cartItem != null) {
-            if(count <= 0) removeItem(id);
-            else {
+            if(count <= 0) {
+                removeItem(id);
+            } else {
                 this.totalCount -= cartItem.getCount();
                 this.totalPrice = this.totalPrice.subtract(cartItem.getTotalPrice());
 
